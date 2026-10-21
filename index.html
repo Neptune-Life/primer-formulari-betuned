@@ -70,6 +70,20 @@
             </div>
 
             <div class="field">
+              <label for="event-type">Tipo de evento</label>
+              <div class="input-shell">
+                <select id="event-type" name="eventType" required aria-describedby="event-type-error">
+                  <option value="">Selecciona una opción</option>
+                  <option value="wedding">Boda</option>
+                  <option value="corporate">Evento corporativo</option>
+                  <option value="private">Evento privado</option>
+                  <option value="club">Club</option>
+                </select>
+              </div>
+              <p class="field-error" id="event-type-error" aria-live="polite"></p>
+            </div>
+
+            <div class="field">
               <label for="phone" data-i18n="phoneLabel">Número de teléfono</label>
               <div class="input-shell">
                 <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.69 2.8a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.33 1.84.56 2.8.69A2 2 0 0 1 22 16.92Z" /></svg>

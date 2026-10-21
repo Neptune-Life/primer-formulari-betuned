@@ -151,7 +151,7 @@ eventDate.min = localDateString();
 const requestedLeadSource = new URLSearchParams(window.location.search).get("source_lead")?.toUpperCase();
 sourceLead.value = allowedLeadSources.has(requestedLeadSource) ? requestedLeadSource : "WEB";
 
-form.querySelectorAll(".field input").forEach((input) => {
+form.querySelectorAll(".field input, .field select").forEach((input) => {
   input.addEventListener("blur", () => showFieldError(input));
   input.addEventListener("input", () => {
     if (input.closest(".field").classList.contains("is-invalid")) showFieldError(input);
@@ -160,12 +160,18 @@ form.querySelectorAll(".field input").forEach((input) => {
 
 form.addEventListener("submit", (event) => {
   event.preventDefault();
-  const inputs = [...form.querySelectorAll(".field input")];
+  const inputs = [...form.querySelectorAll(".field input, .field select")];
   const isValid = inputs.map(showFieldError).every(Boolean);
   if (!isValid) {
     inputs.find((input) => input.getAttribute("aria-invalid") === "true")?.focus();
     return;
   }
+  const firstFormData = {
+    category: form.elements.eventType.value,
+    venue: form.elements.venue.value.trim(),
+    eventDate: form.elements.eventDate.value,
+  };
+  document.cookie = `betuned_first_form=${encodeURIComponent(JSON.stringify(firstFormData))}; path=/; max-age=2592000; SameSite=Lax`;
   form.hidden = true;
   successPanel.hidden = false;
   successPanel.focus();
@@ -174,7 +180,7 @@ form.addEventListener("submit", (event) => {
 newRequestButton.addEventListener("click", () => {
   form.reset();
   form.querySelectorAll(".field").forEach((field) => field.classList.remove("is-invalid"));
-  form.querySelectorAll(".field input").forEach((input) => input.setAttribute("aria-invalid", "false"));
+  form.querySelectorAll(".field input, .field select").forEach((input) => input.setAttribute("aria-invalid", "false"));
   form.querySelectorAll(".field-error").forEach((error) => { error.textContent = ""; });
   successPanel.hidden = true;
   form.hidden = false;
